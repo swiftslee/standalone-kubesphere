@@ -56,6 +56,7 @@ spec:
             - controller-manager
             - --logtostderr=true
             - --leader-elect=true
+            - --kubeconfig=/etc/kubeconfig/kubeconfig
           image: kubesphere/ks-controller-manager:v3.1.0
           imagePullPolicy: IfNotPresent
           name: ks-controller-manager
@@ -80,6 +81,7 @@ spec:
               name: kubelet-plugin
             - mountPath: /etc/localtime
               name: host-time
+            - mountPath: /etc/kubeconfig
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -102,6 +104,10 @@ spec:
             path: /etc/localtime
             type: ""
           name: host-time
+        - configMap:
+            defaultMode: 420
+            name: kubesphere-config
+          name: kubesphere-config
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
