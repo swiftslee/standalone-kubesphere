@@ -43,7 +43,7 @@ generate_kubeconfig_admin() {
 
     if [ $? -ne 0 ];then
       echo "kubeconfig-admin not exist, will be generated..."
-      generate_configmap
+      generate_configmap | kubectl apply -f -
     fi
 }
 

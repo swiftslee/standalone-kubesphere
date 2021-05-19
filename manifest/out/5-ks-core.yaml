@@ -1180,6 +1180,7 @@ spec:
         - command:
             - ks-apiserver
             - --logtostderr=true
+            - --kubeconfig=/etc/kubeconfig/kubeconfig
           image: kubesphere/ks-apiserver:v3.1.0
           imagePullPolicy: IfNotPresent
           name: ks-apiserver
@@ -1202,6 +1203,8 @@ spec:
               name: kubesphere-config
             - mountPath: /etc/localtime
               name: host-time
+            - mountPath: /etc/kubeconfig
+              name: kubeconfig
           livenessProbe:
             failureThreshold: 8
             httpGet:
@@ -1247,6 +1250,10 @@ spec:
             defaultMode: 420
             name: kubesphere-config
           name: kubesphere-config
+        - configMap:
+            defaultMode: 420
+            name: kubeconfig
+          name: kubeconfig
         - hostPath:
             path: /etc/localtime
             type: ""
