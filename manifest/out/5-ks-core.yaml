@@ -82,7 +82,6 @@ spec:
             - mountPath: /etc/localtime
               name: host-time
             - mountPath: /etc/kubeconfig
-              name: kubeconfig
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -107,8 +106,8 @@ spec:
           name: host-time
         - configMap:
             defaultMode: 420
-            name: kubesphere-config
-          name: kubesphere-config
+            name: kubeconfig
+          name: kubeconfig
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
