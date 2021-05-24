@@ -1,0 +1,19 @@
+---
+# Source: ks-core/templates/kubesphere-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubesphere-config
+  namespace: kubesphere-system
+data:
+  kubesphere.yaml: |
+    authentication:
+      authenticateRateLimiterMaxTries: 10
+      authenticateRateLimiterDuration: 10m0s
+      loginHistoryRetentionPeriod: 168h
+      maximumClockSkew: 10s
+      multipleLogin: true
+      kubectlImage: kubesphere/kubectl:latest
+      jwtSecret: "uQ7cSNYYnZMgHp03BwXJWSDrj9yczalV"
+    monitoring:
+      endpoint: http://prometheus-operated.kubesphere-monitoring-system.svc:9090

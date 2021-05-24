@@ -1,0 +1,12 @@
+---
+# Source: ks-core/templates/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubesphere-system
+---
+# Source: ks-core/templates/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubesphere-controls-system

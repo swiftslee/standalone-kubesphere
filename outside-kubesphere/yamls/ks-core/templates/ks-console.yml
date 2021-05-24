@@ -1,0 +1,118 @@
+---
+# Source: ks-core/templates/ks-console.yml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ks-console
+    tier: frontend
+    version: v3.1.0
+  name: ks-console
+  namespace: kubesphere-system
+spec:
+  ports:
+  - name: nginx
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+    nodePort:
+      30880    
+  selector:
+    app: ks-console
+    tier: frontend
+  type: NodePort
+---
+# Source: ks-core/templates/ks-console.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ks-console
+    tier: frontend
+    version: v3.1.0
+  name: ks-console
+  namespace: kubesphere-system
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ks-console
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: ks-console
+        tier: frontend
+    spec:   
+      containers:
+      - image: kubesphere/ks-console:v3.1.0
+        imagePullPolicy: IfNotPresent
+        name: ks-console
+        resources:
+            limits:
+              cpu: 1
+              memory: 1024Mi
+            requests:
+              cpu: 20m
+              memory: 100Mi
+        volumeMounts:
+        - mountPath: /opt/kubesphere/console/server/local_config.yaml
+          name: ks-console-config
+          subPath: local_config.yaml
+        - mountPath: /opt/kubesphere/console/server/sample
+          name: sample-bookinfo
+        - mountPath: /etc/localtime
+          name: host-time
+        livenessProbe:
+          tcpSocket:
+            port: 8000
+          initialDelaySeconds: 15
+          timeoutSeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 8
+      serviceAccount: kubesphere
+      serviceAccountName: kubesphere
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+          tolerationSeconds: 60
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          operator: Exists
+          tolerationSeconds: 60
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: In
+                values:
+                - ""
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: ks-console-config
+          items:
+          - key: local_config.yaml
+            path: local_config.yaml
+        name: ks-console-config
+      - configMap:
+          defaultMode: 420
+          name: sample-bookinfo
+        name: sample-bookinfo
+      - hostPath:
+          path: /etc/localtime
+          type: ""
+        name: host-time
