@@ -1,5 +1,5 @@
 apiVersion: v2
-name: ks-core
+name: ks-core-outside-cluster
 description: A Helm chart for KubeSphere Core components
 
 type: application
