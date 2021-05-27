@@ -1,5 +1,5 @@
 ---
-# Source: ks-core/templates/ks-controller-manager.yaml
+# Source: ks-core-outside-cluster/templates/ks-controller-manager.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,7 +8,6 @@ metadata:
     tier: backend
     version: v3.1.0
   name: ks-controller-manager
-  namespace: kubesphere-system
 spec:
   ports:
   - port: 443
@@ -21,7 +20,7 @@ spec:
   sessionAffinity: None
   type: ClusterIP
 ---
-# Source: ks-core/templates/ks-controller-manager.yaml
+# Source: ks-core-outside-cluster/templates/ks-controller-manager.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,7 +29,6 @@ metadata:
     tier: backend
     version: v3.1.0
   name: ks-controller-manager
-  namespace: kubesphere-system
 spec:
   strategy:
     rollingUpdate:

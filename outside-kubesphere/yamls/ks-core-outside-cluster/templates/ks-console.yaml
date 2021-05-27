@@ -1,37 +1,35 @@
 ---
-# Source: ks-core/templates/ks-apiserver.yml
+# Source: ks-core-outside-cluster/templates/ks-console.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kubernetes.io/created-by: kubesphere.io/ks-apiserver
   labels:
-    app: ks-apiserver
-    tier: backend
+    app: ks-console
+    tier: frontend
     version: v3.1.0
-  name: ks-apiserver
-  namespace: kubesphere-system
+  name: ks-console
 spec:
   ports:
-  - port: 80
+  - name: nginx
+    port: 80
     protocol: TCP
-    targetPort: 9090
+    targetPort: 8000
+    nodePort:
+      30880    
   selector:
-    app: ks-apiserver
-    tier: backend
-    # version: v3.1.0
-  type: ClusterIP
+    app: ks-console
+    tier: frontend
+  type: NodePort
 ---
-# Source: ks-core/templates/ks-apiserver.yml
+# Source: ks-core-outside-cluster/templates/ks-console.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: ks-apiserver
-    tier: backend
+    app: ks-console
+    tier: frontend
     version: v3.1.0
-  name: ks-apiserver
-  namespace: kubesphere-system
+  name: ks-console
 spec:
   strategy:
     rollingUpdate:
@@ -40,27 +38,18 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ks-apiserver
-      tier: backend
-      # version: v3.1.0
+      app: ks-console
+      tier: frontend
   template:
     metadata:
       labels:
-        app: ks-apiserver
-        tier: backend
-        # version: v3.1.0
-    spec:
+        app: ks-console
+        tier: frontend
+    spec:   
       containers:
-      - command:
-        - ks-apiserver
-        - --logtostderr=true
-        - --kubeconfig=/etc/kubeconfig/kubeconfig
-        image: kubesphere/ks-apiserver:v3.1.0
+      - image: kubesphere/ks-console:v3.1.0
         imagePullPolicy: IfNotPresent
-        name: ks-apiserver
-        ports:
-        - containerPort: 9090
-          protocol: TCP
+        name: ks-console
         resources:
             limits:
               cpu: 1
@@ -69,24 +58,21 @@ spec:
               cpu: 20m
               memory: 100Mi
         volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-sock
-        - mountPath: /etc/kubesphere/ingress-controller
-          name: ks-router-config
-        - mountPath: /etc/kubesphere/
-          name: kubesphere-config
+        - mountPath: /opt/kubesphere/console/server/local_config.yaml
+          name: ks-console-config
+          subPath: local_config.yaml
+        - mountPath: /opt/kubesphere/console/server/sample
+          name: sample-bookinfo
         - mountPath: /etc/localtime
           name: host-time
-        - mountPath: /etc/kubeconfig
-          name: kubeconfig
         livenessProbe:
-          failureThreshold: 8
-          httpGet:
-            path: /kapis/version
-            port: 9090
-            scheme: HTTP
+          tcpSocket:
+            port: 8000
           initialDelaySeconds: 15
           timeoutSeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 8
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
@@ -111,23 +97,18 @@ spec:
                 values:
                 - ""
       volumes:
-      - hostPath:
-          path: /var/run/docker.sock
-          type: ""
-        name: docker-sock
       - configMap:
           defaultMode: 420
-          name: ks-router-config
-        name: ks-router-config
+          name: ks-console-config
+          items:
+          - key: local_config.yaml
+            path: local_config.yaml
+        name: ks-console-config
       - configMap:
           defaultMode: 420
-          name: kubesphere-config
-        name: kubesphere-config
+          name: sample-bookinfo
+        name: sample-bookinfo
       - hostPath:
           path: /etc/localtime
           type: ""
         name: host-time
-      - configMap:
-          defaultMode: 420
-          name: kubeconfig
-        name: kubeconfig

@@ -1,10 +1,9 @@
 ---
-# Source: ks-core/templates/ks-router-cm.yaml
+# Source: ks-core-outside-cluster/templates/ks-router-cm.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ks-router-config
-  namespace: kubesphere-system
 data:
   ingress-controller-svc.yaml: |+
     apiVersion: v1

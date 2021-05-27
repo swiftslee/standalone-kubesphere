@@ -1,5 +1,5 @@
 ---
-# Source: ks-core/templates/sample-bookinfo-configmap.yaml
+# Source: ks-core-outside-cluster/templates/sample-bookinfo-configmap.yaml
 apiVersion: v1
 data:
   bookinfo.yaml: |
@@ -377,4 +377,3 @@ data:
 kind: ConfigMap
 metadata:
   name: sample-bookinfo
-  namespace: kubesphere-system

@@ -1,10 +1,9 @@
 ---
-# Source: ks-core/templates/kubesphere-config.yaml
+# Source: ks-core-outside-cluster/templates/kubesphere-config.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kubesphere-config
-  namespace: kubesphere-system
 data:
   kubesphere.yaml: |
     authentication:
@@ -14,6 +13,6 @@ data:
       maximumClockSkew: 10s
       multipleLogin: true
       kubectlImage: kubesphere/kubectl:latest
-      jwtSecret: "uQ7cSNYYnZMgHp03BwXJWSDrj9yczalV"
+      jwtSecret: "xK064ToMKXP8kZHWGUfNKiamn7hKVWB6"
     monitoring:
       endpoint: http://prometheus-operated.kubesphere-monitoring-system.svc:9090

@@ -1,5 +1,5 @@
 ---
-# Source: ks-core/templates/ks-console-config.yml
+# Source: ks-core-outside-cluster/templates/ks-console-config.yaml
 apiVersion: v1
 data:
   local_config.yaml: |
@@ -26,4 +26,3 @@ data:
 kind: ConfigMap
 metadata:
   name: ks-console-config
-  namespace: kubesphere-system
