@@ -6,7 +6,6 @@ metadata:
     tier: backend
     version: {{ .Chart.AppVersion }}
   name: ks-apiserver
-  namespace: kubesphere-system
 spec:
   strategy:
     rollingUpdate:
@@ -86,7 +85,7 @@ spec:
                 values:
                 - ks-apiserver
             namespaces:
-            - kubesphere-system
+            - {{ .Release.Namespace }}
 {{- end }}
       volumes:
       - hostPath:
@@ -122,7 +121,6 @@ metadata:
     tier: backend
     version: {{ .Chart.AppVersion }}
   name: ks-apiserver
-  namespace: kubesphere-system
 spec:
   ports:
   - port: 80

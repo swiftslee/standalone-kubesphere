@@ -6,33 +6,33 @@
     metadata:
     name: ks-router
     spec:
-    replicas: 1
-    selector:
+      replicas: 1
+      selector:
         matchLabels:
-        app: kubesphere
-        component: ks-router
-        tier: backend
-    template:
+          app: kubesphere
+          component: ks-router
+          tier: backend
+      template:
         metadata:
-        labels:
+          labels:
             app: kubesphere
             component: ks-router
             tier: backend
-        annotations:
+          annotations:
             prometheus.io/port: '10254'
             prometheus.io/scrape: 'true'
         spec:
-        serviceAccountName: kubesphere-router-serviceaccount
-        containers:
+          serviceAccountName: kubesphere-router-serviceaccount
+          containers:
             - name: nginx-ingress-controller
-            image: {{ .Values.image.nginx_ingress_controller_repo }}:{{ .Values.image.nginx_ingress_controller_tag | default .Chart.AppVersion}}
-            args:
+              image: {{ .Values.image.nginx_ingress_controller_repo }}:{{ .Values.image.nginx_ingress_controller_tag | default .Chart.AppVersion}}
+              args:
                 - /nginx-ingress-controller
                 - --default-backend-service=$(POD_NAMESPACE)/default-http-backend
                 - --annotations-prefix=nginx.ingress.kubernetes.io
                 - --update-status
                 - --update-status-on-shutdown
-            env:
+              env:
                 - name: POD_NAME
                 valueFrom:
                     fieldRef:
@@ -41,22 +41,22 @@
                 valueFrom:
                     fieldRef:
                     fieldPath: metadata.namespace
-            ports:
-            - name: http
+              ports:
+              - name: http
                 containerPort: 80
-            - name: https
+              - name: https
                 containerPort: 443
-            livenessProbe:
+              livenessProbe:
                 failureThreshold: 3
                 httpGet:
-                path: /healthz
-                port: 10254
-                scheme: HTTP
+                  path: /healthz
+                  port: 10254
+                  scheme: HTTP
                 initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 1
-            readinessProbe:
+              readinessProbe:
                 failureThreshold: 3
                 httpGet:
                 path: /healthz
@@ -65,7 +65,7 @@
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 1
-            securityContext:
+              securityContext:
                 runAsNonRoot: false
 {{- end }}
 
@@ -79,18 +79,18 @@
         component: ks-router
         tier: backend
     spec:
-    selector:
+      selector:
         app: kubesphere
         component: ks-router
         tier: backend
-    type: LoadBalancer
-    ports:
+      type: LoadBalancer
+      ports:
         - name: http
-        protocol: TCP
-        port: 80
-        targetPort: 80
+          protocol: TCP
+          port: 80
+          targetPort: 80
         - name: https
-        protocol: TCP
-        port: 443
-        targetPort: 443
+          protocol: TCP
+          port: 443
+          targetPort: 443
 {{- end }}

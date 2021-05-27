@@ -6,7 +6,6 @@ metadata:
     tier: frontend
     version: {{ .Chart.AppVersion }}
   name: ks-console
-  namespace: kubesphere-system
 spec:
   strategy:
     rollingUpdate:
@@ -45,8 +44,6 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 8
-      serviceAccount: kubesphere
-      serviceAccountName: kubesphere
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
@@ -72,7 +69,7 @@ spec:
                 values:
                 - ks-console
             namespaces:
-            - kubesphere-system
+            - {{ .Release.Namespace }}
 {{- end }}
       volumes:
       - configMap:
@@ -101,7 +98,6 @@ metadata:
     tier: frontend
     version: {{ .Chart.AppVersion }}
   name: ks-console
-  namespace: kubesphere-system
 spec:
   ports:
   - name: nginx
