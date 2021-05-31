@@ -1,0 +1,143 @@
+---
+# Source: ks-core-outside-cluster/templates/ks-controller-manager.yaml
+apiVersion: v1
+data:
+  ca.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lRWE1YaDlZcE9jSGZrak00RUhRRHhiVEFOQmdrcWhraUc5dzBCQVFzRkFEQWoKTVNFd0h3WURWUVFERXhocmN5MWpiMjUwY205c2JHVnlMVzFoYm1GblpYSXRZMkV3SGhjTk1qRXdOVE14TURndwpOek14V2hjTk16RXdOVEk1TURnd056TXhXakFqTVNFd0h3WURWUVFERXhocmN5MWpiMjUwY205c2JHVnlMVzFoCmJtRm5aWEl0WTJFd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURwVHY1cGkyaXIKbnhWeUFZWnNLdWxzdnM0UGZVb0s0MndVazJtMEZVUkFuR1FkN0hQVm9ZZWo1RkdaQ2tGRkMwNCtpa2RweXRQVQpTSDBCVDZYejA5SmlReXFCeUppNlFSLzBLbHd1SU1DWWFBSXRrclQyS3U2S3YrZmtYOUl5aUJ1b1hQZzdtd3ZmCnBKTEV1UGo0QVgyb0JZYnJTSk1xYlJWVmpERWVOVVRqV0ZESGFCSnJ1eEpZY205M1E2N3duT3hIcTFURUg4SDIKdlRGYUFzMk1CTVRybXhZSzZNZkJnRFdvY3JDNkdNUzlXNGc3bURmK2Q1Z3Q1NzFJUTNOWGRrRmNDeXRPVXYxVwpYQWgwNVh1YzBhRFdVeGxZK1pkY3JkS2RScnIyTVZDTXVNSThiN0tIOFM5OGJpMG84ZFpFcEVlaUVaUng4Q25QCjlSaTd2TkJiTEJqdkFnTUJBQUdqWVRCZk1BNEdBMVVkRHdFQi93UUVBd0lDcERBZEJnTlZIU1VFRmpBVUJnZ3IKQmdFRkJRY0RBUVlJS3dZQkJRVUhBd0l3RHdZRFZSMFRBUUgvQkFVd0F3RUIvekFkQmdOVkhRNEVGZ1FVc1dsNgorS1FxT3djcmdqMWJXdFJuQUZnK1o3UXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBRkpoT0kwS0lCUmwwQ3NVCmJGZTFlSm9rTHZqSkhaRjdtMGJBWWw4U055SmZmck1tZGtrN00vMENFOUhNSnVmVWtIaFcycXcyM0xYYVEwa0kKaTZDY2ROWnF3dVBWTEUwVGtTakE3Q1pHczJnWlhTSU0yN1cwSmgycWljTitlUG5vbDNRempMbUtHNkhsVFdpSgp3TWRDaDg3eTIyb2pLZnBlZy83TUl3VCtWYnlLb2N6TWIxMExqcEhRMjZmUURMcGxNNWhkRWhZcUZMUUFUYmdRClhjWGx0bG5LaG5tU2pMZ0x5WmJ4WnAya1JJWU1ldURyTnFiV3ExRUdUcml1TnBaN2V6WkxxT1c1RFdicWlnYSsKMG1rTVJVWkJvWEVxTUY5eG1hSDFMeTNVb2xxcEFySy9OeHozcTZkUXBLMmk0eXl2M09OeW94SEZUNHlWRUlvKwprVlNrdGVJPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+  tls.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURtVENDQW9HZ0F3SUJBZ0lRS0IyK3Z5TFVVaUxyVXZlT0t4ZUFFREFOQmdrcWhraUc5dzBCQVFzRkFEQWoKTVNFd0h3WURWUVFERXhocmN5MWpiMjUwY205c2JHVnlMVzFoYm1GblpYSXRZMkV3SGhjTk1qRXdOVE14TURndwpOek14V2hjTk16RXdOVEk1TURnd056TXhXakFwTVNjd0pRWURWUVFERXg1U1JVeEZRVk5GTFU1QlRVVXRZV1J0CmFYTnphVzl1TFhkbFltaHZiMnN3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRRE4KaTR6TkFSMUs4WDlkVmZKN091Ni91R2NTYVRSbXdOSXdaNVFZUUQ1STN6T05PajVnTDBYYUZKSGVRN3d1TEsvUgpXQ0JKdkc5U2NhNW8xN21BY1IwV0tpV0Z2ekdycUVPUHFoYmdQa2FxSkx5dVpFVWxXMUtEZHg2OFk0aCtFbTdwCjdPa3ZFSlJ1Z2lyZjUyb0Zib3dBYUtYSXkxYkc0SFZiUkRzYStOMHFnRjBreGNIWHFhT3d2YjlHMnR3VnVkNXQKeTJxcEwvaXdMTmp6U04xVnY3ZVVpM3FFZitNVGR1SnF3SytxTUt3QzVXblFkalQrUko1LzVkUzlFV200S3kwRgprSzMzZkVOd2k4MlNXSFM0ajRjb2RaeVpEWWZ4UVZLK2dKbUZlRWptZjlzRlRyRkJ3djJKVHIwQ2xnc1N2bFVuCkpZV0NobWFlZnJDa3ZxUDFOa3pkQWdNQkFBR2pnY0l3Z2I4d0RnWURWUjBQQVFIL0JBUURBZ1dnTUIwR0ExVWQKSlFRV01CUUdDQ3NHQVFVRkJ3TUJCZ2dyQmdFRkJRY0RBakFNQmdOVkhSTUJBZjhFQWpBQU1COEdBMVVkSXdRWQpNQmFBRkxGcGV2aWtLanNISzRJOVcxclVad0JZUG1lME1GOEdBMVVkRVFSWU1GYUNKMnR6TFdOdmJuUnliMnhzClpYSXRiV0Z1WVdkbGNpNXJkV0psYzNCb1pYSmxMWE41YzNSbGJZSXJhM010WTI5dWRISnZiR3hsY2kxdFlXNWgKWjJWeUxtdDFZbVZ6Y0dobGNtVXRjM2x6ZEdWdExuTjJZekFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBNWxMMApuVXZTdDJyU0ZtUjUwb1dYdGxsb0g5Smhyc3NpY0JNMHRqZkl2YU9vZFJ4ZlIyKzhKa3VOcURJR0ZiV2RCS1BoClpMTzFEQW1qOEQ5aHlyT2o1ZzN3UHEwRzRsdEsxa0pSZ1hQcHdHN0g1bEgwc3BRUjBRSVduN3dPdjJUY3h1QzQKbURaMzJXVm54Z1FtNlY0eDVVQkdGWm5wZ1dvOXI0am5MSlRtblJ1ZXAzWmhlemZab0MzVVF5STZJYy9iOTROQwpxTk1iejYyWlNRdWlFSXREU25qUTUvdmdGUDhKNVV3UnIyVVZKRndoRjAxd2dZaUh0ZHdxV2RxV0RVVUFSL0NTCjRwOERBdGtuaU11d0xXWFlweXJjd0lMa1NUK25TRDBTeWh2RlNoNzhZcUE0ck1hTVljQ0JYNDZJazlINTVud0IKVWpUdm9ndXdCc0thY253RWNBPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+  tls.key: "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBell1TXpRRWRTdkYvWFZYeWV6cnV2N2huRW1rMFpzRFNNR2VVR0VBK1NOOHpqVG8rCllDOUYyaFNSM2tPOExpeXYwVmdnU2J4dlVuR3VhTmU1Z0hFZEZpb2xoYjh4cTZoRGo2b1c0RDVHcWlTOHJtUkYKSlZ0U2czY2V2R09JZmhKdTZlenBMeENVYm9JcTMrZHFCVzZNQUdpbHlNdFd4dUIxVzBRN0d2amRLb0JkSk1YQgoxNm1qc0wyL1J0cmNGYm5lYmN0cXFTLzRzQ3pZODBqZFZiKzNsSXQ2aEgvakUzYmlhc0N2cWpDc0F1VnAwSFkwCi9rU2VmK1hVdlJGcHVDc3RCWkN0OTN4RGNJdk5rbGgwdUkrSEtIV2NtUTJIOFVGU3ZvQ1poWGhJNW4vYkJVNngKUWNMOWlVNjlBcFlMRXI1Vkp5V0Znb1ptbm42d3BMNmo5VFpNM1FJREFRQUJBb0lCQVFERzdLR3QzY0E5d1k4awpBNFFUSXl2Z3ZGUjBpd0M5MlNzUzBZdVFGTXl5dGVFc2N3dmZCcUV4dCtxY0V5M1Ira21GN3lZQWRxKytPR3MwCjZHS05IZXVxZ2N1aXJ6RWhFazJnZ2xwMVY1QUlKbG04NVNuT1I1Mkp3Z1VyQ2FFVmNqMkpnMUVCemFmNWMxeVAKS1dXQU1FYXFOcDBMd1U4UVZqYjl4d0QwejVrc0FTY1Zsa3dlWml5L3RZRnlVcDFhZFV6aFVZU2NKNzVHRXV6bgpuSzR1LzJUNEZxcFBqcTNRMWFwYk1pd1NkaHhVenVNL2tiK01pYXBtcjJESy91MitkZlUvTGlhV3pzRktQc3JwCkRDQjhlZi9ya09qc3BTY3dWb2gxYUd5blU2bWllUHdVNlI4VjJnMnkwc1psSDdMelRkdDA0RVZOWUt3b1RndzkKYUJpZldlV0JBb0dCQU9qSHR3elFJbng1YlQwUG1DZWNQYkV5M1V3L0NEM0pQVnhCYjgrVHptRGpJajhhY2JQTQpmUEE3L01tUC9JUk9hUStDNnBYZER3NVV6bmFUNGN0dS90SjE5Q0JVbk9OQUZIVk9MRHU5Z3V1ZjJ3ckczeFlGClA5K3VCV3dpbGRGNnhGa09hM1B3MDJMMXFXUjVLMFJFMlV6dnBjUUEzRlNCaE1SOWpJblM4TVdSQW9HQkFPSU0KWERRUDI0TmhEa3RPMzBFYmlTMElzYW8ydTRyRVlYdEhwaWg0YituNzdjbVBiVGNxZTUzQ0QyY25PMW84Q21jTQpJWGNNa2o4azdNT0lWaVVXMi9RdXBmZDBGRnJBcDdHY3ZTb1ZxNGtNc0dsYkd1c2xyUTZ4UVcxV09kQms3dGlNCnBGYml0ZmY4cklpUFZYTHhzMWZwb2orZmZmRFoyR2xvR3NHdjA3eU5Bb0dBU0srVUNQdzB5SWxpQXQ4THM5S2wKc044aEd0M1R4UGRCb2IwTkhOUWFiVVovT3hVV3kvM2VSV1YxMmJxTUx3UU02anNHNVNUUnZyZmNnRXBOQnlqeAppT1lzQkt4bkVNN0JsSitFVUdNc3JrYU1MeUZLSjZZYis4eHJCUWtIbnhHbW5laFN4VEU5MEhqRkhBcDU2Q2RYCmN4Nmh0RUpRaWxLbkVuUGhubWV2cHdFQ2dZRUF5eFZ0dFB4V0s5ZURueGJ5THExTmRaOHM5dzZMT1dXcmFyVjUKU3p6QTF3ZVduNUp5L2EvMk5VcUd5aGNPRk1pQ1ZBZ3EvS2pYcjFFK1FZRjRXNFFKQW56eWNMbmlHNUtnVmtySwpERWhCdnpRZVBka3krdlh6WDVMU2hDZUdjM3BxdHpUTDVKOXorcU1RWXZQYlFoUnlHdFoxQlJJR2ROOVN0WWhwCkdZQWRDM1VDZ1lBSXlPbFJqSVdVclZYSnVCZmMxekdMMk5Ub2xiZEZKZnNJV3kxaHRYMmdwd1dyWlQ5dm12TFgKTzM0bW1hT0tkRDFRd2ZYUXlnRyt5aWJzZHBFOEovbjdlMWJ2aEZLbmppeVBNZFdreWR6Y3ppYVZBd2xmUXRHVwo3M3pqaHYzRkFZLzNiVXBIbk5Dd3VQYmN2U3FMM0tEczkzNExzQ1VwN05oQWdhNW1xS1FSM2c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
+kind: Secret
+metadata:
+  name: ks-controller-manager-webhook-cert
+  namespace: kubesphere-system
+type: Opaque
+---
+# Source: ks-core-outside-cluster/templates/ks-controller-manager.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ks-controller-manager
+    tier: backend
+    version: v3.1.0
+  name: ks-controller-manager
+spec:
+  ports:
+  - port: 443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    app: ks-controller-manager
+    tier: backend
+    # version: v3.1.0
+  sessionAffinity: None
+  type: ClusterIP
+---
+# Source: ks-core-outside-cluster/templates/ks-controller-manager.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ks-controller-manager
+    tier: backend
+    version: v3.1.0
+  name: ks-controller-manager
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+    type: RollingUpdate
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: ks-controller-manager
+      tier: backend
+      # version: v3.1.0
+  template:
+    metadata:
+      labels:
+        app: ks-controller-manager
+        tier: backend
+        # version: v3.1.0
+    spec:
+      containers:
+      - command:
+        - controller-manager
+        - --logtostderr=true
+        - --leader-elect=true
+        - --kubeconfig=/etc/kubeconfig/kubeconfig
+        image: kubesphere/ks-controller-manager:v3.1.0
+        imagePullPolicy: IfNotPresent
+        name: ks-controller-manager
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+        resources:
+            limits:
+              cpu: 1
+              memory: 1000Mi
+            requests:
+              cpu: 30m
+              memory: 50Mi
+        volumeMounts:
+        - mountPath: /etc/kubesphere/
+          name: kubesphere-config
+        - mountPath: /tmp/k8s-webhook-server/serving-certs
+          name: webhook-secret
+        - mountPath: /var/lib/kubelet/plugins/
+          name: kubelet-plugin
+        - mountPath: /etc/localtime
+          name: host-time
+        - mountPath: /etc/kubeconfig
+          name: kubeconfig
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: kubesphere-config
+          configMap:
+            name: kubesphere-config
+            defaultMode: 420
+        - name: webhook-secret
+          secret:
+            defaultMode: 420
+            secretName: ks-controller-manager-webhook-cert
+        - name: kubelet-plugin
+          hostPath:
+            path: /var/lib/kubelet/plugins/
+            type: DirectoryOrCreate
+        - hostPath:
+            path: /etc/localtime
+            type: ""
+          name: host-time
+        - name: kubeconfig
+          configMap:
+            defaultMode: 420
+            name: kubeconfig
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+          tolerationSeconds: 60
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          operator: Exists
+          tolerationSeconds: 60
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: In
+                values:
+                - ""
