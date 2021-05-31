@@ -1,5 +1,5 @@
 generate-cm: 
-	kubectl create configmap kubeconfig --from-file kubeconfig --dry-run=true --output=yaml > outside-kubesphere/templates/kubeconfig-cm.yaml
+	kubectl create configmap kubeconfig --from-file kubeconfig --dry-run=client --output=yaml > outside-kubesphere/templates/kubeconfig-cm.yaml
 
 deploy-inside-cluster: 
 	helm install kubesphere-inside in-cluster/

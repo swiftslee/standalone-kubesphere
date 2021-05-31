@@ -1,3 +1,20 @@
+{{- $ca := genCA "ks-controller-manager-ca" 3650 }}
+  {{- $cn := printf "%s-admission-webhook" .Release.Name }}
+  {{- $altName1 := printf "ks-controller-manager.kubesphere-system" }}
+  {{- $altName2 := printf "ks-controller-manager.kubesphere-system.svc"  }}
+  {{- $cert := genSignedCert $cn nil (list $altName1 $altName2) 3650 $ca }}
+
+apiVersion: v1
+data:
+  ca.crt: {{ b64enc $ca.Cert | quote }}
+  tls.crt: {{ b64enc  $cert.Cert | quote }}
+  tls.key: {{ b64enc  $cert.Key | quote }}
+kind: Secret
+metadata:
+  name: ks-controller-manager-webhook-cert
+  namespace: kubesphere-system
+type: Opaque
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
