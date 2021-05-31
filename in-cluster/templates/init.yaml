@@ -24,48 +24,6 @@ subjects:
     kind: Group
     name: pre-registration
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  annotations:
-    kubesphere.io/creator: system
-    iam.kubesphere.io/aggregation-roles: '["role-template-manage-alerting-messages","role-template-manage-alerting-policies","role-template-manage-app-workloads","role-template-manage-cluster-settings","role-template-manage-components","role-template-manage-crds","role-template-manage-members","role-template-manage-network-policies","role-template-manage-nodes","role-template-manage-projects","role-template-manage-roles","role-template-manage-storageclasses","role-template-manage-volumes","role-template-view-alerting-messages","role-template-view-alerting-policies","role-template-view-app-workloads","role-template-view-cluster-monitoring","role-template-view-members","role-template-view-network-policies","role-template-view-nodes","role-template-view-projects","role-template-view-roles","role-template-view-storageclasses","role-template-view-volume-snapshots","role-template-view-volumes"]'
-  name: cluster-admin
-rules:
-  - apiGroups:
-      - '*'
-    resources:
-      - '*'
-    verbs:
-      - '*'
-  - nonResourceURLs:
-      - '*'
-    verbs:
-      - '*'
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  annotations:
-    kubesphere.io/creator: system
-    iam.kubesphere.io/aggregation-roles: '["role-template-view-alerting-messages","role-template-view-alerting-policies","role-template-view-app-workloads","role-template-view-cluster-monitoring","role-template-view-members","role-template-view-network-policies","role-template-view-nodes","role-template-view-projects","role-template-view-roles","role-template-view-storageclasses","role-template-view-volume-snapshots","role-template-view-volumes"]'
-  name: cluster-viewer
-rules:
-  - apiGroups:
-      - '*'
-    resources:
-      - '*'
-    verbs:
-      - get
-      - list
-      - watch
-  - nonResourceURLs:
-      - '*'
-    verbs:
-      - 'GET'
-
----
 apiVersion: iam.kubesphere.io/v1alpha2
 kind: GlobalRole
 metadata:
