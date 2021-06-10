@@ -13,6 +13,6 @@ data:
       maximumClockSkew: 10s
       multipleLogin: true
       kubectlImage: kubesphere/kubectl:latest
-      jwtSecret: "UCON5IAYZoRWPElfiSBGkwkKmWHnBQtM"
+      jwtSecret: "D1FkV52Hdi0SRGaaHvM23TOyR7luQ60I"
     monitoring:
       endpoint: http://prometheus-operated.kubesphere-monitoring-system.svc:9090

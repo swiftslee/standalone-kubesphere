@@ -12,7 +12,7 @@ data:
 kind: Secret
 metadata:
   name: ks-controller-manager-webhook-cert
-  namespace: kubesphere-system
+  namespace: {{ .Release.Namespace }}
 type: Opaque
 ---
 apiVersion: apps/v1
