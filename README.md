@@ -1,6 +1,6 @@
 # standalone-kubesphere
 This repo helps you install KubeSphere Core in another Kubernetes cluster.
-## Prepare
+## Prerequisites
 Two k8s clusters, one named kind-kubesphere-member, another named cluster kind-kubesphere-control-plane.
 You are assumed to install KubeSphere in cluster kind-kubesphere-control-plane which connects cluster kind-kubesphere-member.
 In this tutorial, we use `kind` to create two clusters.
@@ -8,10 +8,15 @@ In this tutorial, we use `kind` to create two clusters.
 Edit `config/member-config` `config/control-plane-config` and replace `apiServerAddress` with your own host machine ip.
 
 `make create-cluster`
+
 If everything goes well, run `kubectl config get-contexts` and you will get the following results:
+
+```
 CURRENT   NAME                            CLUSTER                         AUTHINFO                        NAMESPACE
 *         kind-kubesphere-control-plane   kind-kubesphere-control-plane   kind-kubesphere-control-plane
           kind-kubesphere-member          kind-kubesphere-member          kind-kubesphere-member
+```
+          
 ### Create configmap in kubesphere-control-plane cluster
 `make generate-cm`
 ### Create KubeSphere-Core manifests in kubesphere-member cluster
