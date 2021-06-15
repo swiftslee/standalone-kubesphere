@@ -1,21 +1,30 @@
 # standalone-kubesphere
-This repo help you install KubeSphere Core outside your own cluster
+This repo helps you install KubeSphere Core in another Kubernetes cluster.
 ## Prepare
-two K8s clusters, one named cluster A, another named cluster B.
-You are assumed to install KubeSphere in cluster B which connects cluster A.
-## Installation Steps
-### Step One
-Paste the cluster A kubeconfig into the `kubeconfig` file, then execute
+Two k8s clusters, one named kind-kubesphere-member, another named cluster kind-kubesphere-control-plane.
+You are assumed to install KubeSphere in cluster kind-kubesphere-control-plane which connects cluster kind-kubesphere-member.
+In this tutorial, we use `kind` to create two clusters.
+### Create two clusters with `kind`(optional)
+Edit `config/member-config` `config/control-plane-config` and replace `apiServerAddress` with your own host machine ip.
+
+`make create-cluster`
+If everything goes well, run `kubectl config get-contexts` and you will get the following results:
+CURRENT   NAME                            CLUSTER                         AUTHINFO                        NAMESPACE
+*         kind-kubesphere-control-plane   kind-kubesphere-control-plane   kind-kubesphere-control-plane
+          kind-kubesphere-member          kind-kubesphere-member          kind-kubesphere-member
+### Create configmap in kubesphere-control-plane cluster
 `make generate-cm`
-### Step Two
-run `make deploy-kubesphere-inside` in cluster A
-### Step Three
-run `make deploy-kubesphere-outside` in cluster B
-### Vist KubeSphere Core
-Open your browser and enter `$clusterB_NodeIp:30880`, if everything goes well, 
-use `admin/P@88w0rd` to log into the console.
+### Create KubeSphere-Core manifests in kubesphere-member cluster
+`make deploy-kubesphere-member`
+### Deploy KubeSphere-Core in kubesphere-control-plane cluster
+`make deploy-kubesphere-control-plane`
+### Visit KubeSphere
+Open your browser and enter `http://localhost:30880`, use `admin/P@88w0rd` to log into the console.
+### Clean Up
+`make clean-up`
 ## TODO
-1. Support installing webhook under mannifest/webhook.yaml
-2. Support installing KubeSphere in another namespace instead of in kubesphere-system only.
-3. Support launching kubectl pod with `--kubeconfig` flag.
-4. Supprot installing monitoring agent in user's cluster.
+1. Support running webhook alone
+2. Support ks-console connects to ks-apiserver by modifying console cm
+3. Support installing KubeSphere in another namespace instead of in kubesphere-system only.(leader election&Constant&Cluster Controller&Api dispatch&Devops s2i binary hardcoded)
+4. Support launching kubectl pod with `--kubeconfig` flag.
+5. Supprot installing monitoring agent in kubesphere-member cluster.
